@@ -1,0 +1,5 @@
+{
+    "REPORT_SIZE": 100000000,
+    "ERROR_THRESHOLD": 0.21,
+    "LOG_FILE": null
+}

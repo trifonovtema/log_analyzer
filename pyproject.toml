@@ -1,0 +1,42 @@
+[tool.poetry]
+name = "log_analyzer"
+version = "0.0.1"
+description = "A Python-based tool for analyzing Nginx access logs, identifying slow URLs, and generating detailed HTML reports"
+authors = ["trifonovtema <artyom85@gmail.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12"
+structlog = "^24.4.0"
+click = "^8.1.7"
+pytest = "^8.3.3"
+tqdm = "^4.67.1"
+types-tqdm = "^4.67.0.20241119"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
+black = "^24.10.0"
+isort = "^5.13.2"
+pre-commit = "^4.0.1"
+types-tqdm = "^4.67.0.20241119"
+mypy = "^1.13.0"
+flake8 = "^7.1.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+log_cli = true
+log_cli_level = "INFO"
+
+[tool.pre-commit]
+hook-config = ".pre-commit-config.yaml"
+
+[tool.mypy]
+mypy_path = "app"
+cache_dir = "/dev/null"
