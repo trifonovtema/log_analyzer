@@ -28,8 +28,8 @@ def load_config(config_path: str) -> Config:
 @click.command()
 @click.option(
     "--config",
-    default="./config.json",
-    help="Path to the configuration file (default: ./config.json).",
+    default="./sample_config.json",
+    help="Path to the configuration file (default: ./sample_config.json).",
 )
 def main(config):
     try:
