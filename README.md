@@ -37,7 +37,7 @@ problematic" URLs based on request processing times (`$request_time`).
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/trifonovtema/log-analyzer.git
+   git clone https://github.com/trifonovtema/log_analyzer.git
    poetry install
    poetry run pre-commit install
     ```
@@ -47,22 +47,12 @@ problematic" URLs based on request processing times (`$request_time`).
 
 ```json
 {
-    "LOG_DIR": "./logs",
-    "REPORT_DIR": "./reports",
-    "REPORT_SIZE": 1000,
-    "ERROR_THRESHOLD": 0.1,
-    "LOG_FILE": "./log_analyzer.log"
+    "REPORT_SIZE": 100000000,
+    "ERROR_THRESHOLD": 0.21,
+    "LOG_FILE": null,
+    "LOG_DIR":  "./logs",
+    "REPORT_DIR":  "./reports"
 }
-```
-## Configuration Fields
-```
-| Field            | Default Value  | Description
-|------------------|----------------|-------------------------------------------------------------------------
-| `LOG_DIR`        | `./logs`       | Directory containing the logs to analyze.
-| `REPORT_DIR`     | `./reports`    | Directory to store generated HTML reports.
-| `REPORT_SIZE`    | `1000`         | Number of top URLs to include in the report.
-| `ERROR_THRESHOLD`| `0.1`          | Maximum allowable ratio of unparsable lines before stopping execution.
-| `LOG_FILE`       | `None`         | File to log application messages (if not set, logs are printed to stdout).
 ```
 
 # Usage
@@ -72,7 +62,7 @@ To analyze logs and generate a report:
 poetry run python -m log_analyzer.main --config ./sample_config.json
 ```
 ## Options
-`--config`: Path to the configuration file (default: ./config.json).
+`--config`: Path to the configuration file (default: ./sample_config.json).
 
 # Running Tests
 ## Run unit tests using pytest:
@@ -101,16 +91,8 @@ The HTML report includes a table summarizing URL statistics
 # Docker Support
 To run the analyzer in a Docker container:
 
-Build the Docker image:
-
 ```bash
-docker build -t log-analyzer .
-```
-
-Run the container:
-
-```bash
-docker run --rm -v $(pwd)/logs:/app/logs -v $(pwd)/reports:/app/reports log-analyzer
+docker-compose up -build
 ```
 
 # Development
