@@ -8,4 +8,4 @@ RUN mkdir -p ./reports
 RUN mkdir -p ./logs
 RUN mkdir -p ./output_logs
 WORKDIR /
-CMD ["poetry","--directory", "/app", "run", "python", "-m", "log_analyzer.main"]
+CMD ["poetry","--directory", "/app", "run", "python", "-m", "app.main"]
