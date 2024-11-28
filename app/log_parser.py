@@ -77,7 +77,9 @@ class LogParser:
 
         with open_log_file(self.filepath) as log_file:
             with tqdm(
-                total=self.total_lines, desc="Processing log file", unit="lines"
+                total=self.total_lines,
+                desc="Processing log file",
+                unit="lines",
             ) as progress_bar:
                 for line in log_file:
                     progress_bar.update(1)
@@ -88,7 +90,10 @@ class LogParser:
                         parsed = match.groupdict()
                         if parsed.get("request") == "0":
                             self.unparsable_lines += 1
-                            logger.debug("Invalid request detected", request="0")
+                            logger.debug(
+                                "Invalid request detected",
+                                request="0",
+                            )
                             self.check_thresholds()
                             continue
                         yield parsed

@@ -58,6 +58,14 @@ def process_log_data(
         total_requests += 1
         total_request_time += request_time
 
-    report_data = calculate_report_data(url_stats, total_requests, total_request_time)
+    report_data = calculate_report_data(
+        url_stats,
+        total_requests,
+        total_request_time,
+    )
 
-    return sorted(report_data, key=lambda x: x["time_sum"], reverse=True)[:report_size]
+    return sorted(
+        report_data,
+        key=lambda x: x["time_sum"],
+        reverse=True,
+    )[:report_size]

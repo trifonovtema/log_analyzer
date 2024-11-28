@@ -1,10 +1,8 @@
-import os
 from datetime import datetime
 
 import pytest
 
 from app.log_utils import find_latest_log
-from app.models import LatestLog
 
 
 @pytest.fixture

@@ -1,7 +1,7 @@
 import json
 import os
 from string import Template
-from typing import Iterable, Iterator
+from typing import Iterator
 
 import structlog
 
@@ -20,12 +20,18 @@ def generate_report(
     logger.info("Report successfully generated", report_path=report_path)
 
 
-def render_report(report_data, output_path, template_path="./app/report_template.html"):
+def render_report(
+    report_data,
+    output_path,
+    template_path="./app/report_template.html",
+):
     try:
         with open(template_path, "r", encoding="utf-8") as template_file:
             template_content = template_file.read()
         template = Template(template_content)
-        report_html = template.safe_substitute(table_json=json.dumps(report_data))
+        report_html = template.safe_substitute(
+            table_json=json.dumps(report_data),
+        )
 
         temp_path = f"{output_path}.incomplete"
 

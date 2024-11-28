@@ -1,24 +1,22 @@
-from pathlib import Path
-from typing import Iterable, Iterator
-
 import click
 import structlog
 
-from app.log_parser import LogParser, parse_log_file
-from app.log_processing import process_log_data
+from app.log_parser import parse_log_file
 from app.log_utils import get_log_file
-from app.models import LatestLog
-from app.report import generate_report, render_report
+from app.report import generate_report
 from app.settings import Config
-from app.setup_logs import setup_logging
+from app.setup_logs import setup_logging, setup_temporary_logging
 from app.utils import count_lines_buffered
 
+setup_temporary_logging()
 logger = structlog.get_logger(__name__)
 
 
 def load_config(config_path: str) -> Config:
     """Load and validate the configuration."""
+    logger.info("Config loading started")
     final_config = Config.from_file(config_path)
+    logger.info("Loaded config", config=final_config)
     Config.validate(final_config)
     setup_logging(log_file=final_config.LOG_FILE)
     logger.info("Config loaded", config=final_config)
@@ -32,8 +30,7 @@ def load_config(config_path: str) -> Config:
     help="Path to the configuration file (default: ./sample_config.json).",
 )
 def main(config):
-    # import sys
-    # print("\n".join(sys.path))
+
     try:
         final_config = load_config(config)
         logger.info("Application started")
