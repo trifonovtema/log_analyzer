@@ -69,7 +69,7 @@ problematic" URLs based on request processing times (`$request_time`).
 ## Running the Analyzer
 To analyze logs and generate a report:
 ```bash
-poetry run python log_analyzer/main.py --config ./config.json
+poetry run python -m log_analyzer.main --config ./sample_config.json
 ```
 ## Options
 `--config`: Path to the configuration file (default: ./config.json).
