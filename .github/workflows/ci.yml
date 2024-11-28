@@ -25,8 +25,6 @@ jobs:
         run: |
           make lint
           make format
-
       - name: Run tests
         run: |
-          echo "PYTHONPATH: $PYTHONPATH"
           make test
