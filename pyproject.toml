@@ -19,9 +19,9 @@ types-tqdm = "^4.67.0.20241119"
 pytest = "^8.3.3"
 black = "^24.10.0"
 isort = "^5.13.2"
-mypy = "^1.13.0"
 pre-commit = "^4.0.1"
 types-tqdm = "^4.67.0.20241119"
+mypy = "^1.13.0"
 
 [build-system]
 requires = ["poetry-core"]
@@ -29,7 +29,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["log_analyzer","."]
+pythonpath = ["."]
 log_cli = true
 log_cli_level = "INFO"
 
@@ -37,4 +37,5 @@ log_cli_level = "INFO"
 hook-config = ".pre-commit-config.yaml"
 
 [tool.mypy]
-mypy_path = "log_analyzer"
+mypy_path = "app"
+cache_dir = "/dev/null"
