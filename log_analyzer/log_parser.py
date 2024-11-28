@@ -14,11 +14,17 @@ logger = structlog.getLogger(name=__name__)
 
 def parse_log_file(
     latest_log_file: LatestLog, total_lines: int, config: Config
-) -> Iterator[dict[str, str ]]:
-    logger.info("Start parsing log file", latest_log_filename=latest_log_file.filename)
+) -> Iterator[dict[str, str]]:
+    logger.info(
+        "Start parsing log file",
+        latest_log_filename=latest_log_file.filename,
+    )
     log_parser = LogParser(Path(latest_log_file.path), total_lines, config)
     log_entry = log_parser.parse()
-    logger.info("Log file successfully processed",  latest_log_filename=latest_log_file.filename)
+    logger.info(
+        "Log file successfully processed",
+        latest_log_filename=latest_log_file.filename,
+    )
     return log_entry
 
 
@@ -47,7 +53,7 @@ class LogParser:
 
     def check_thresholds(self):
         error_ratio = self.unparsable_lines / self.total_lines
-        logger.debug("Error ratio", error_ratio= error_ratio)
+        logger.debug("Error ratio", error_ratio=error_ratio)
         if error_ratio > self.config.ERROR_THRESHOLD:
             logger.error(
                 "Error threshold exceeded",

@@ -26,9 +26,15 @@ def find_latest_log(log_dir: str) -> LatestLog | None:
                     filename=log_path, date=log_date, path=Path(log_path)
                 )
     if latest_log is None:
-        logger.info( "No log found for" , log_name_pattern=LOG_NAME_PATTERN)
+        logger.info(
+            "No log found for",
+            log_name_pattern=LOG_NAME_PATTERN,
+        )
     else:
-        logger.info("Latest log file found", latest_log_file=latest_log.path)
+        logger.info(
+            "Latest log file found",
+            latest_log_file=latest_log.path,
+        )
     return latest_log
 
 
@@ -42,7 +48,10 @@ def get_log_file(config: Config):
     report_path = os.path.join(config.REPORT_DIR, report_name)
 
     if os.path.exists(report_path):
-        logger.info("Report for the last date already exists", report_path=report_path)
+        logger.info(
+            "Report for the last date already exists",
+            report_path=report_path,
+        )
         return None, None
 
     return latest_log_file, report_path
