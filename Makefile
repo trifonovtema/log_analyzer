@@ -11,7 +11,7 @@ format:
 	make lint
 
 test:
-	poetry run pytest
+	PYTHONPATH="$(PWD)" poetry run python -m pytest --import-mode=importlib
 
 run:
 	poetry run python -m log_analyzer.main --config ./sample_config.json

@@ -5,8 +5,8 @@ services:
       dockerfile: Dockerfile
     container_name: log_analyzer_container
     volumes:
-      - ./logs:/log_analyzer/logs
-      - ./reports:/log_analyzer/reports
-      - ./sample_config.json:/log_analyzer/sample_config.json
-      - ./output_logs:/log_analyzer/output_logs
-    command: ["poetry","--directory", "/log_analyzer", "run", "python", "-m", "log_analyzer.main", "--config", "/log_analyzer/sample_config.json"]
+      - ./logs:/app/logs
+      - ./reports:/app/reports
+      - ./sample_config.json:/app/sample_config.json
+      - ./output_logs:/app/output_logs
+    command: ["poetry","--directory", "/app", "run", "python", "-m", "app.main", "--config", "/app/sample_config.json"]

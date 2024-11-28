@@ -1,7 +1,7 @@
 from statistics import median
 from typing import Iterable
 
-from .models import UrlStats
+from app.models import UrlStats
 
 
 def calculate_report_data(

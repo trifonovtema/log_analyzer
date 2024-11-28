@@ -4,6 +4,7 @@ version = "0.0.1"
 description = "A Python-based tool for analyzing Nginx access logs, identifying slow URLs, and generating detailed HTML reports"
 authors = ["trifonovtema <artyom85@gmail.com>"]
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.12"
@@ -34,3 +35,6 @@ log_cli_level = "INFO"
 
 [tool.pre-commit]
 hook-config = ".pre-commit-config.yaml"
+
+[tool.mypy]
+mypy_path = "log_analyzer"

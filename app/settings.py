@@ -9,11 +9,11 @@ logger = structlog.get_logger(__name__)
 
 @dataclass
 class Config:
-    LOG_DIR: str = "/log_analyzer/logs"
-    REPORT_DIR: str = "/log_analyzer/reports"
+    LOG_DIR: str = "/app/logs"
+    REPORT_DIR: str = "/app/reports"
     REPORT_SIZE: int = 1000
     ERROR_THRESHOLD: float = 0.1
-    LOG_FILE: str | None = "/log_analyzer/output_logs/log_analyzer.log"
+    LOG_FILE: str | None = "/app/output_logs/app.log"
 
     @classmethod
     def from_file(cls, filepath: str) -> "Config":

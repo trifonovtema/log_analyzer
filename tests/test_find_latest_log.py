@@ -3,8 +3,8 @@ from datetime import datetime
 
 import pytest
 
-from log_analyzer.log_analyzer.log_utils import find_latest_log
-from log_analyzer.log_analyzer.models import LatestLog
+from app.log_utils import find_latest_log
+from app.models import LatestLog
 
 
 @pytest.fixture

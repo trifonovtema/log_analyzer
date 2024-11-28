@@ -4,14 +4,14 @@ from typing import Iterable, Iterator
 import click
 import structlog
 
-from .log_parser import LogParser, parse_log_file
-from .log_processing import process_log_data
-from .log_utils import get_log_file
-from .models import LatestLog
-from .report import generate_report, render_report
-from .settings import Config
-from .setup_logs import setup_logging
-from .utils import count_lines_buffered
+from app.log_parser import LogParser, parse_log_file
+from app.log_processing import process_log_data
+from app.log_utils import get_log_file
+from app.models import LatestLog
+from app.report import generate_report, render_report
+from app.settings import Config
+from app.setup_logs import setup_logging
+from app.utils import count_lines_buffered
 
 logger = structlog.get_logger(__name__)
 
@@ -32,6 +32,8 @@ def load_config(config_path: str) -> Config:
     help="Path to the configuration file (default: ./sample_config.json).",
 )
 def main(config):
+    # import sys
+    # print("\n".join(sys.path))
     try:
         final_config = load_config(config)
         logger.info("Application started")

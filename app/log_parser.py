@@ -6,8 +6,8 @@ from typing import Iterator
 import structlog
 from tqdm import tqdm
 
-from .models import LatestLog
-from .settings import Config
+from app.models import LatestLog
+from app.settings import Config
 
 logger = structlog.getLogger(name=__name__)
 

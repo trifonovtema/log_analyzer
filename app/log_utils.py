@@ -5,8 +5,8 @@ from pathlib import Path
 
 import structlog
 
-from .models import LatestLog
-from .settings import Config
+from app.models import LatestLog
+from app.settings import Config
 
 logger = structlog.get_logger(__name__)
 

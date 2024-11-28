@@ -1,6 +1,6 @@
 import pytest
 
-from log_analyzer.log_analyzer.report import render_report
+from app.report import render_report
 
 
 @pytest.fixture

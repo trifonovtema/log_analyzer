@@ -1,7 +1,7 @@
 import pytest
 
-from log_analyzer.log_analyzer.log_parser import LogParser
-from log_analyzer.log_analyzer.settings import Config
+from app.log_parser import LogParser
+from app.settings import Config
 
 
 @pytest.fixture
