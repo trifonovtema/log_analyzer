@@ -4,8 +4,8 @@ install:
 	poetry install
 
 lint:
-	poetry run black log_analyzer
-	poetry run isort log_analyzer
+	poetry run black app
+	poetry run isort app
 
 format:
 	make lint
