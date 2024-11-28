@@ -1,0 +1,7 @@
+{
+    "REPORT_SIZE": 100000000,
+    "ERROR_THRESHOLD": 0.21,
+    "LOG_FILE": "./output_logs/log_analyzer.log",
+    "LOG_DIR":  "./logs",
+    "REPORT_DIR":  "./reports"
+}
