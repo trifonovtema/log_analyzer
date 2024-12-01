@@ -19,13 +19,29 @@ def parse_log_file(
         "Start parsing log file",
         latest_log_filename=latest_log_file.filename,
     )
-    log_parser = LogParser(Path(latest_log_file.path), total_lines, config)
-    log_entry = log_parser.parse()
-    logger.info(
-        "Log file successfully processed",
-        latest_log_filename=latest_log_file.filename,
-    )
-    return log_entry
+    try:
+        log_parser = LogParser(Path(latest_log_file.path), total_lines, config)
+        log_entry = log_parser.parse()
+        logger.info(
+            "Log file successfully processed",
+            latest_log_filename=latest_log_file.filename,
+        )
+        return log_entry
+    except OSError as e:
+        logger.error(
+            "File operation failed",
+            error=str(e),
+            file_path=latest_log_file.path,
+            exc_info=True,
+        )
+        raise
+    except Exception as e:
+        logger.error(
+            "Unexpected error during log parsing",
+            error=str(e),
+            exc_info=True,
+        )
+        raise
 
 
 class LogParser:
@@ -69,33 +85,52 @@ class LogParser:
         return True
 
     def get_file_opener(self):
-        return (
-            gzip.open(self.filepath, "rt", encoding="utf-8")
-            if self.filepath.suffix == ".gz"
-            else open(self.filepath, "r", encoding="utf-8")
-        )
+        try:
+            return (
+                gzip.open(self.filepath, "rt", encoding="utf-8")
+                if self.filepath.suffix == ".gz"
+                else open(self.filepath, "r", encoding="utf-8")
+            )
+        except OSError as e:
+            logger.error(
+                "Failed to open log file",
+                error=str(e),
+                file_path=str(self.filepath),
+                exc_info=True,
+            )
+            raise
 
     def parse(self) -> Iterator[dict[str, str]]:
-        with self.file_opener as log_file:
-            with tqdm(
-                total=self.total_lines,
-                desc="Processing log file",
-                unit="lines",
-            ) as progress_bar:
-                for line in log_file:
-                    progress_bar.update(1)
-                    if not line.strip():
-                        continue
-                    match = self.LOG_PATTERN.match(line.strip())
-                    if not match:
-                        self.unparsable_lines += 1
-                        logger.debug("Unparsable line", line=line.strip())
-                        self.check_thresholds()
-                        continue
-                    parsed = match.groupdict()
-                    if parsed.get("request") == "0":
-                        self.unparsable_lines += 1
-                        logger.debug("Invalid request detected", request="0")
-                        self.check_thresholds()
-                        continue
-                    yield parsed
+        try:
+            with self.file_opener as log_file:
+                with tqdm(
+                    total=self.total_lines,
+                    desc="Processing log file",
+                    unit="lines",
+                ) as progress_bar:
+                    for line in log_file:
+                        progress_bar.update(1)
+                        if not line.strip():
+                            continue
+                        match = self.LOG_PATTERN.match(line.strip())
+                        if not match:
+                            self.unparsable_lines += 1
+                            logger.debug("Unparsable line", line=line.strip())
+                            self.check_thresholds()
+                            continue
+                        parsed = match.groupdict()
+                        if parsed.get("request") == "0":
+                            self.unparsable_lines += 1
+                            logger.debug("Invalid request detected", request="0")
+                            self.check_thresholds()
+                            continue
+                        yield parsed
+
+        except Exception as e:
+            logger.error(
+                "Error occurred during log file parsing",
+                error=str(e),
+                file_path=str(self.filepath),
+                exc_info=True,
+            )
+            raise
