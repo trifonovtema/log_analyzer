@@ -57,7 +57,6 @@ def main(config):
             error=str(e),
             exc_info=True,
         )
-        raise
     finally:
         logger.info("Application terminated")
 
